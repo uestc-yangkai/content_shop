@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>hello</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+<div style="height: 50px;background-color: red" >
+    <a href="/spring-web/api/content/list">首页</a>
+</div>
+    <form action="/spring-web/api/user/login">
+        <div class="form-group">
+            <label for="userName">用户名</label>
+            <input type="text" class="form-control" id="userName" name="userName" placeholder="请输入名称">
+        </div>
+        <div class="form-group">
+            <label for="passWord">密码</label>
+            <input type="text" class="form-control" id="passWord" name="passWord" placeholder="请输入密码">
+        </div>
+        <input type="submit" value="登陆" />
+    </form>
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <!-- 包括所有已编译的插件 -->
+    <script src="js/bootstrap.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http:// mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+  <mapper namespace="com.netease.course.dao.ContentMapper">
+    <select id="getContentList" resultType="com.netease.course.meta.Content">
+        select  id,title ,summary,body ,img,currentPrice,mark  from content
+    </select>
+    <select id="getNotbuyContentList" resultType="com.netease.course.meta.Content">
+        select id,title ,summary,body ,img,currentPrice,mark from content where mark=0
+    </select>
+    <select id="getBuyedCount" resultType="int">
+        select count(*) from content where mark>0
+    </select>
+    <delete id="deleteContent" parameterType="int">
+        delete from content where id = #{contentId}
+    </delete>
+    <select id="getContent" parameterType="int" resultType="com.netease.course.meta.Content">
+        select  id ,title ,summary,body,img,mark,currentPrice from content where id=#{contentId}
+    </select>
+    <update id="updateContent" parameterType="com.netease.course.meta.Content" >
+        update content set title=#{title},img=#{img},summary=#{summary},body=#{body},currentPrice=#{currentPrice}  where id=#{id}
+    </update>
+    <insert id="addContent" parameterType="com.netease.course.meta.Content" useGeneratedKeys="true" keyProperty="id">
+        insert into content(title,img,summary,body,mark,currentPrice)
+        values(#{title},#{img},#{summary},#{body},#{mark},#{currentPrice})
+    </insert>
+    <select id="getMarkById" parameterType="int" resultType="int">
+        select mark from content where id=#{contentId}
+    </select>
+    <select id="getContentView" parameterType="int" resultType="com.netease.course.meta.ContentView">
+        select  c.id ,title ,summary,body,img,mark ,currentPrice,buyPrice from content  c
+        left join bill b on c.id=b.content_id
+        where c.id=#{contentId} limit 0,1
+    </select>
+    <update id="updateMark" parameterType="int">
+        update content set mark=1 where id=#{contentId};
+    </update>
+    <select id="getSumContent" resultType="int">
+        select count(*) from content
+    </select>
+    <!--<select id="getUser" parameterType="int"  resultMap="userMap">-->
+        <!--select u.id  as userId,userName,corp ,-->
+        <!--c.id  as courseId,courseName,c.teacher_id  as teacherId,teacher.teacherName as tacherName-->
+        <!--from user u-->
+        <!--left join usercourse uc on u.id=uc.user_id-->
+        <!--left join course c on c.id=uc.course_id-->
+         <!--left join teacher  on c.teacher_id=teacher.id-->
+        <!--where u.id=#{userId}-->
+    <!--</select>-->
+    <!--<resultMap id="userMap" type="User">-->
+            <!--<id property="id" column="userId" javaType="int"></id>-->
+            <!--<result property="userName" column="userName" javaType="String"></result>-->
+            <!--<result property="comp" column="corp" javaType="String"/>-->
+            <!--<collection property="courseList" ofType="com.netease.course.meta.Course" >-->
+            <!--<id property="id" column="courseId"/>-->
+            <!--<result property="courseName" column="courseName"/>-->
+            <!--<association property="teacher"  javaType="com.netease.course.meta.Teacher" >-->
+                <!--<result property="id" column="teacherId" ></result>-->
+                <!--<result property="teacherName" column="teacherName"/>-->
+            <!--</association>-->
+        <!--</collection>-->
+    <!--</resultMap>-->
+
+</mapper>
